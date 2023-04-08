@@ -8,14 +8,8 @@ const proxy = httpProxy.createProxyServer({
 
 const server = http.createServer((req, res) => {
   // Intercept requests to the chat page and proxy them to the OpenAI chat URL
-  if (req.url.startsWith('/chat')) {
-    const newUrl = `https://chat.openai.com/chat`;
-    proxy.web(req, res, { target: newUrl, headers: { host: 'chat.openai.com' } });
-  } else {
-    // Return 404 for all other requests
-    res.writeHead(404);
-    res.end();
-  }
+  const newUrl = `https://chat.openai.com/chat`;
+  proxy.web(req, res, { target: newUrl, headers: { host: 'chat.openai.com' } });
 });
 
 server.listen(3000, () => {
